@@ -49,7 +49,7 @@
 
 int main() {
     // declare interpreter with default initialization though "defautl constructor"
-  std::cout << "Hello :D" << std::endl;
+  std::cout << "Welcome " << std::endl;
   Interpreter interpreter;
   interpreter.calculate();
   return 0;
