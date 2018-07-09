@@ -40,5 +40,6 @@ CTestTestfile.cmake
 
 /src/bin/*
 /build/*
+*/src/bin/*
 
 *~
