@@ -31,23 +31,27 @@ Result read_from_file(std::fstream* cin) {
   std::string read;
   *cin >> read;
   Result res;
-  if(! *cin) {
+  if(! *cin) { // Something went wrong with cin, opposite of good()
 
     if(cin->bad())
       res = Result{"error", cin, "Fs is bad"};
     
     if(cin->fail())
+      // Take out of the fail() state (good()) in order to be able to recover
+      // and look at characters from it again
+      cin->clear(); 
       res =  Result{"error", cin, "Format error"};
 
     if(cin->eof())
-      std::cout << read << '\n';
-      res = Result{"ok", cin, "End of file"};
+      cin->clear(); 
+      res = Result{"ok", cin, "Read operatop end of file"};
 
     return res;
     
   } else {
-    std::cout << read << '\n';
-    return Result{"ok", cin, "Read successful"};
+    std::cout << read << " ";
+    //return Result{"ok", cin, "Read successful"};
+    return read_from_file(cin);
   }
 };
 
@@ -60,16 +64,16 @@ int main() {
   
   // Check status for opening the file
   if(open_operation.status == "ok"){ // Opening successful
-    std::cout << open_operation.info << '\n';
+    std::cout << "--" << open_operation.info << "--" << '\n';
 
     // Write to file
     Result write_operation =
-      write_to_file(open_operation.fs, "HelloHelloHelloHello");
-    std::cout << write_operation.info << '\n';
+      write_to_file(open_operation.fs, "Hello World");
+    std::cout << "--" << write_operation.info << "--" << '\n';
 
     // Check status for writing the file
     if(write_operation.status == "ok") { // writing successful
-
+      
       // flush buffer
       open_operation.fs->flush();
 
@@ -85,7 +89,7 @@ int main() {
       // only object allocated by new needed to delete.
       delete open_operation.fs;
       
-      std::cout << read_operation.info << '\n';
+      std::cout << '\n' << "--" << read_operation.info << "--" << '\n';
       
     }
 
