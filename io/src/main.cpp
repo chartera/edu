@@ -1,7 +1,11 @@
 #include "file.h"
+/* 
+ TODO: ifstream ist; ist.exceptions(ist.exceptions()|ios_base::badbit);
+*/<
 
 int main() {
 
+  
   std::string fname = "/home/app/c/edu/io/src/bin/file.txt";
 
   File file;
@@ -43,6 +47,6 @@ int main() {
   } else {
 
     std::cout << open_operation.info << '\n';
-  }
+    }
   return 0;
 }

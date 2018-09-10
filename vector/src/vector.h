@@ -11,23 +11,25 @@
 
 class Vector{
   int size;
-  double* pointer;
+  double* elem;
 public:
-
-  Vector(int s): size{s}, pointer{new double[s]}
+  
+  Vector(int s): size{s}, elem{new double[s]}
   {
     for(int i = 0; i < s; i++) {
-      pointer[i] = i;
+      // initialization for pointer
+      elem[i] = i;
     }
   }
 
   ~Vector()
   {
-    delete[] pointer;
+    std::cout << "Destructor Vector \n";
+    delete[] elem;
   }
   
   int get_size() const {return size;};
-  double* get_pointer() const {return pointer;};
+  double* get_elem() const {return elem;};
 
 };
 
